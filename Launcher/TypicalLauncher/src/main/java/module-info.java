@@ -9,4 +9,6 @@ module space.typro.typicallauncher {
 
     opens space.typro.typicallauncher to javafx.fxml;
     exports space.typro.typicallauncher;
+    exports space.typro.typicallauncher.controllers;
+    opens space.typro.typicallauncher.controllers to javafx.fxml;
 }
