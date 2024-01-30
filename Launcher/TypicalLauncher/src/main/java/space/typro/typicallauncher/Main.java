@@ -18,6 +18,9 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/launcher-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        /*
+            Делаем так, чтоб окно можно было передвигать в любой точке
+        */
         scene.setOnMousePressed(event -> {
             xOffset = stage.getX() - event.getScreenX();
             yOffset = stage.getY() - event.getScreenY();
@@ -27,12 +30,12 @@ public class Main extends Application {
             stage.setY(event.getScreenY() + yOffset);
 
         });
-        GLOBAL_STAGE = stage;
         stage.setTitle("TypicalLauncher");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.getIcons().add(new Image(ResourceHelper.getResourceByType(ResourceHelper.ResourceType.IMAGES, "ico.png")));
         stage.initStyle(StageStyle.TRANSPARENT);
+        GLOBAL_STAGE = stage;
         stage.show();
     }
 

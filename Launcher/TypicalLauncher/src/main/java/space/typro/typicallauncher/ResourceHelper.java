@@ -1,9 +1,11 @@
 package space.typro.typicallauncher;
 
+import java.util.Objects;
+
 public class ResourceHelper {
 
     public static String getResourceByType(ResourceType type, String resourceName){
-        return Main.class.getResource(type.location + "/" + resourceName).toExternalForm();
+        return Objects.requireNonNull(Main.class.getResource(type.location + "/" + resourceName)).toExternalForm();
     }
 
 

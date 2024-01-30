@@ -14,12 +14,8 @@ public abstract class BaseController implements InternetSensitivity {
 
 
     @Override
-    public void onInternetLostConnection() {
-
-    }
+    public void onInternetLostConnection() {}
 
     @Override
-    public void onInternetReturnedConnection() {
-
-    }
+    public void onInternetReturnedConnection() {}
 }
