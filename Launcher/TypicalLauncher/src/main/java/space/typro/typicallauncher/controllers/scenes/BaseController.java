@@ -1,4 +1,4 @@
-package space.typro.typicallauncher.controllers;
+package space.typro.typicallauncher.controllers.scenes;
 
 import space.typro.typicallauncher.events.EventDispatcher;
 import space.typro.typicallauncher.events.InternetSensitivity;

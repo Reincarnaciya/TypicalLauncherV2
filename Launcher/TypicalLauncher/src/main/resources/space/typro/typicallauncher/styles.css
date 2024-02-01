@@ -1,7 +1,17 @@
+@font-face {
+    -fx-font-family: "Minecraft";
+    src: url("Minecraft.ttf");
+}
+
+
 .root {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
     -fx-focus-color: white;
+    -fx-font-family: "F77 Minecraft";
+}
+AnchorPane {
+    -fx-focus-color: NONE;
 }
 Label {
 	-fx-text-fill: white;
@@ -12,5 +22,7 @@ Text {
     -fx-font-size: 18px;
 }
 Button{
+    -fx-text-fill: WHITE;
+    -fx-background-color: #262626;
     -fx-cursor: HAND;
 }

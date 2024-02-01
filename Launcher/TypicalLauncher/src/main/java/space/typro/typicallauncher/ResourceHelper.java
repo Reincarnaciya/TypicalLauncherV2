@@ -14,6 +14,7 @@ public class ResourceHelper {
         IMAGES("images"),
         LEFT_PANEL_IMAGE_NP("images/leftPanelImg/notpick"),
         LEFT_PANEL_IMAGE_P("images/leftPanelImg/picked"),
+        SUB_SCENES("scenes/subscene"),
         SCENES("scenes"),
         ROOT("");
 
