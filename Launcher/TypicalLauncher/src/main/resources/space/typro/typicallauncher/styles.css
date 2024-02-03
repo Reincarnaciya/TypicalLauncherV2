@@ -1,9 +1,7 @@
 @font-face {
-    -fx-font-family: "Minecraft";
+    -fx-font-family: "F77 Minecraft";
     src: url("Minecraft.ttf");
 }
-
-
 .root {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
@@ -17,12 +15,49 @@ Label {
 	-fx-text-fill: white;
 }
 Text {
+    -fx-font-family: "F77 Minecraft";
     -fx-fill: WHITE;
     -fx-text-fill: white;
-    -fx-font-size: 18px;
+    -fx-font-size: 18pt;
 }
 Button{
     -fx-text-fill: WHITE;
     -fx-background-color: #262626;
     -fx-cursor: HAND;
+}
+CheckBox:focused .box {
+    -fx-background-color: #262626;
+}
+CheckBox .box {
+    -fx-background-color: #262626;
+}
+CheckBox {
+    -fx-background-color: #363636;
+}
+Slider Text {
+    -fx-background-color: #363636;
+    -fx-font-size: 6pt;
+}
+
+Slider:focused .thumb {
+    -fx-background-color: #262626;
+}
+Slider .thumb {
+    -fx-background-color: #262626;
+}
+
+Hyperlink {
+    -fx-text-fill: #4137c9;
+    -fx-border-color: #363636;
+}
+
+Hyperlink:focused {
+    -fx-text-fill: #4137c9;
+    -fx-border-color: #363636;
+}
+
+
+TextField {
+    -fx-background-color: #363636;
+    -fx-text-fill: WHITE;
 }

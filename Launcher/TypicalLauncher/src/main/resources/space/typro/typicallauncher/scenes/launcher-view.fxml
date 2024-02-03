@@ -70,7 +70,7 @@
         </AnchorPane>
         <AnchorPane layoutX="108.0" prefHeight="67.0" prefWidth="680.0" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <VBox fx:id="textVBox" alignment="BOTTOM_CENTER" layoutX="-108.0" layoutY="-5.0" prefHeight="489.0" prefWidth="680.0" spacing="10.0" AnchorPane.bottomAnchor="-417.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
-                <Text fx:id="upperText" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center; -fx-fill: #fff; -fx-font-size: 32px;" text="loading.." textAlignment="CENTER" wrappingWidth="224.99999487400055">
+                <Text fx:id="upperText" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center; -fx-fill: #fff; -fx-font-size: 32px;" text="loading.." textAlignment="CENTER" wrappingWidth="582.9999948740005">
                <font>
                   <Font name="F77 Minecraft Regular" size="12.0" />
                </font></Text>

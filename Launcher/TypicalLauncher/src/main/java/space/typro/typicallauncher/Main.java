@@ -1,6 +1,7 @@
 package space.typro.typicallauncher;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -10,6 +11,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class Main extends Application {
+    public static final String LAUNCHER_VERSION = "DEV_BUILD_0";
+
+
     private double xOffset;
     private double yOffset;
 
@@ -41,6 +45,7 @@ public class Main extends Application {
 
     public static void exit(){
         GLOBAL_STAGE.close();
+        Platform.exit();
         System.exit(0);
     }
 

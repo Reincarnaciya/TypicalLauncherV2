@@ -5,24 +5,21 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.ResourceHelper;
-import space.typro.typicallauncher.controllers.scenes.BaseController;
-import space.typro.typicallauncher.controllers.scenes.subscenes.PlayController;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
 
 public class LauncherController extends BaseController {
+    public static LauncherController instance;
 
     //=========================================================================== Инициализация элементов javafx ===========================================================================
     @FXML
@@ -44,7 +41,7 @@ public class LauncherController extends BaseController {
     @FXML
     private VBox textVBox;
     @FXML
-    private Text upperText;
+    public Text upperText;
     @FXML
     private AnchorPane lineBelowText;
     @FXML
@@ -54,16 +51,13 @@ public class LauncherController extends BaseController {
     @FXML
     private Pane subscene;
     //=========================================================================== Конец инициализации элементов javaFX ===========================================================================
-
     private static Subscene currentSubscene = null;
     private static Subscene previosSubscene = Subscene.NONE;
-
 
     @Override
     public void initialize() {
         super.initialize();
-
-
+        instance = this;
         this.loadLeftPanels();
         this.loadTopPane();
     }
@@ -71,15 +65,34 @@ public class LauncherController extends BaseController {
     /**
      * @param whatToLoad Сабсцена для загрузки
      */
-    public void loadSubscene(Subscene whatToLoad) { //TODO: Сменить субсцену на Anchor Pane, ибо подсцена работает некорректно
+    public static void loadSubscene(final Subscene whatToLoad) { //TODO: Сменить субсцену на Anchor Pane, ибо подсцена работает некорректно
         if (whatToLoad.equals(currentSubscene)){
             return;
         }
+
         Platform.runLater(()->{
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(new URI(ResourceHelper.getResourceByType(ResourceHelper.ResourceType.SUB_SCENES, whatToLoad.fxml)).toURL());
+                Subscene toLoad = whatToLoad;
+                if (whatToLoad == Subscene.PREVIOS_SUBSCENE && previosSubscene != Subscene.NONE){
+                    toLoad = previosSubscene;
+                }else if (whatToLoad == Subscene.PREVIOS_SUBSCENE){
+                    return;
+                }
+                FXMLLoader fxmlLoader = new FXMLLoader(new URI(ResourceHelper.getResourceByType(ResourceHelper.ResourceType.SUB_SCENES, toLoad.fxml)).toURL());
                 Parent tempContent = fxmlLoader.load();
-                subscene.getChildren().setAll(tempContent);
+                instance.subscene.getChildren().setAll(tempContent);
+                instance.upperText.setText(switch (toLoad){
+                    case LOGIN -> "Авторизация";
+                    case PROFILE -> "Профиль";
+                    case REGISTER -> "Регистрация";
+                    case NEWS -> "Новости";
+                    case FORUM -> "Форум";
+                    case FRIENDS -> "Друзья";
+                    case SETTINGS -> "Настройки";
+                    case PLAY -> "Играть";
+                    default -> "Неизвестное окно..Ты как сюда забрался?";
+                });
+
             } catch (URISyntaxException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -88,6 +101,7 @@ public class LauncherController extends BaseController {
         previosSubscene = Objects.requireNonNullElse(currentSubscene, Subscene.NONE);
         currentSubscene = whatToLoad;
     }
+
 
     private void loadTopPane() {
         exitButton.setOnMouseClicked(mouseEvent -> Main.exit());
