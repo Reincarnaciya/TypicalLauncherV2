@@ -5,12 +5,19 @@ module space.typro.typicallauncher {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
-    requires lombok;
+    requires static lombok;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    requires jdk.management;
 
     opens space.typro.typicallauncher to javafx.fxml;
-    exports space.typro.typicallauncher;
-    exports space.typro.typicallauncher.controllers.scenes.subscenes;
     opens space.typro.typicallauncher.controllers.scenes.subscenes to javafx.fxml;
+    exports space.typro.typicallauncher;
+    exports space.typro.typicallauncher.events;
+    opens space.typro.typicallauncher.events;
+    exports space.typro.typicallauncher.controllers.scenes.subscenes;
     exports space.typro.typicallauncher.controllers.scenes;
     opens space.typro.typicallauncher.controllers.scenes to javafx.fxml;
+    exports space.typro.typicallauncher.controllers;
+    opens space.typro.typicallauncher.controllers to javafx.fxml;
 }

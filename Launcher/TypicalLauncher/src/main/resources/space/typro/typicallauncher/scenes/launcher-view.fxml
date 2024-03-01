@@ -4,20 +4,27 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox fx:id="mainPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.typicallauncher.controllers.scenes.LauncherController">
-   <Pane prefHeight="25.0" prefWidth="800.0">
+   <HBox alignment="CENTER_RIGHT">
       <children>
-         <Pane fx:id="exitButton" layoutX="767.0" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: RED;">
+         <Pane fx:id="hideLauncherButton" layoutX="785.0" layoutY="10.0" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: BLUE;">
             <cursor>
                <Cursor fx:constant="HAND" />
-            </cursor></Pane>
+            </cursor>
+         </Pane>
+         <Pane fx:id="exitButton" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: RED;">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Pane>
       </children>
-   </Pane>
+   </HBox>
    <AnchorPane prefHeight="1.0" prefWidth="600.0" style="-fx-background-color: WHITE;">
       <VBox.margin>
          <Insets />

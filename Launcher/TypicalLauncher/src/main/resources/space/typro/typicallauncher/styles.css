@@ -61,3 +61,8 @@ TextField {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
 }
+
+Header{
+    -fx-background-color: #363636;
+}
+

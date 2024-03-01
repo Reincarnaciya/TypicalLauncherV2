@@ -9,15 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import lombok.CustomLog;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.ResourceHelper;
+import space.typro.typicallauncher.controllers.BaseController;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-
+@CustomLog
 public class LauncherController extends BaseController {
     public static LauncherController instance;
 
@@ -45,14 +47,15 @@ public class LauncherController extends BaseController {
     @FXML
     private AnchorPane lineBelowText;
     @FXML
-    private AnchorPane currentContent;
-    @FXML
     private Pane exitButton;
     @FXML
     private Pane subscene;
+    @FXML
+    private Pane hideLauncherButton;
     //=========================================================================== Конец инициализации элементов javaFX ===========================================================================
     private static Subscene currentSubscene = null;
     private static Subscene previosSubscene = Subscene.NONE;
+
 
     @Override
     public void initialize() {
@@ -60,17 +63,22 @@ public class LauncherController extends BaseController {
         instance = this;
         this.loadLeftPanels();
         this.loadTopPane();
+        hideLauncherButton.setOnMouseClicked(this::hideLauncher);
+    }
+
+    private void hideLauncher(MouseEvent mouseEvent) {
+        Main.GLOBAL_STAGE.setIconified(true);
     }
 
     /**
      * @param whatToLoad Сабсцена для загрузки
      */
-    public static void loadSubscene(final Subscene whatToLoad) { //TODO: Сменить субсцену на Anchor Pane, ибо подсцена работает некорректно
+    public static void loadSubscene(final Subscene whatToLoad) {
         if (whatToLoad.equals(currentSubscene)){
             return;
         }
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             try {
                 Subscene toLoad = whatToLoad;
                 if (whatToLoad == Subscene.PREVIOS_SUBSCENE && previosSubscene != Subscene.NONE){
@@ -78,21 +86,22 @@ public class LauncherController extends BaseController {
                 }else if (whatToLoad == Subscene.PREVIOS_SUBSCENE){
                     return;
                 }
-                FXMLLoader fxmlLoader = new FXMLLoader(new URI(ResourceHelper.getResourceByType(ResourceHelper.ResourceType.SUB_SCENES, toLoad.fxml)).toURL());
+                FXMLLoader fxmlLoader = new FXMLLoader(new URI(ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.SUB_SCENES, toLoad.fxml)).toURL());
                 Parent tempContent = fxmlLoader.load();
                 instance.subscene.getChildren().setAll(tempContent);
-                instance.upperText.setText(switch (toLoad){
-                    case LOGIN -> "Авторизация";
-                    case PROFILE -> "Профиль";
-                    case REGISTER -> "Регистрация";
-                    case NEWS -> "Новости";
-                    case FORUM -> "Форум";
-                    case FRIENDS -> "Друзья";
-                    case SETTINGS -> "Настройки";
-                    case PLAY -> "Играть";
-                    default -> "Неизвестное окно..Ты как сюда забрался?";
-                });
-
+                instance.upperText.setText(
+                        switch (toLoad){
+                            case LOGIN -> "Авторизация";
+                            case PROFILE -> "Профиль";
+                            case REGISTER -> "Регистрация";
+                            case NEWS -> "Новости";
+                            case FORUM -> "Форум";
+                            case FRIENDS -> "Друзья";
+                            case SETTINGS -> "Настройки";
+                            case PLAY -> "Играть";
+                            default -> "Неизвестное окно..Ты как сюда забрался?";
+                        }
+                );
             } catch (URISyntaxException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -153,10 +162,10 @@ public class LauncherController extends BaseController {
                 new BackgroundImage(
                         new Image(
                                 picked ? ResourceHelper.getResourceByType(
-                                        ResourceHelper.ResourceType.LEFT_PANEL_IMAGE_P, imgName
+                                        ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_P, imgName
                                 ) :
                                         ResourceHelper.getResourceByType(
-                                                ResourceHelper.ResourceType.LEFT_PANEL_IMAGE_NP, imgName
+                                                ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_NP, imgName
                                         )
                         ),
                         BackgroundRepeat.NO_REPEAT,

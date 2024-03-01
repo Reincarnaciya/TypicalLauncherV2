@@ -1,0 +1,18 @@
+.root {
+    -fx-background-color: #363636;
+    -fx-border-color: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-focus-color: #ffffff;
+    -fx-font-family: "F77 Minecraft";
+}
+Button{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #262626;
+    -fx-cursor: HAND;
+}
+GridPane{
+    -fx-background-color: #363636;
+}
+Label {
+    -fx-text-fill: white;
+}

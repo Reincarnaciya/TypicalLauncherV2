@@ -9,34 +9,58 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static space.typro.typicallauncher.managers.DirManager.logDir;
+
 public class Logger {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private String loggerName;
+    private final String loggerName;
 
 
     public Logger(String name){
         loggerName = name;
     }
 
+    public static Logger getLogger(String loggerName){
+        return new Logger(loggerName);
+    }
 
-    public void logInfo(String message) {
+
+    public void info(Object message) {
         String timestamp = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(formatter);
         String formattedMessage = String.format("[%s] [INFO] in [%s]: %s", timestamp, loggerName, message);
         System.out.println(formattedMessage);
     }
+    public void info(Object message, Exception e) {
+        String timestamp = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(formatter);
+        String formattedMessage = String.format("[%s] [INFO] in [%s]: %s", timestamp, loggerName, message);
+        System.out.println(formattedMessage);
+        e.printStackTrace();
+    }
 
-    public void logWarning(String message) {
+    public void warn(Object message) {
         String timestamp = LocalDateTime.now().format(formatter);
         String formattedMessage = String.format("[%s] [WARNING] in [%s]: %s", timestamp, loggerName, message);
         System.out.println(formattedMessage);
     }
+    public void warn(Object message, Exception e) {
+        String timestamp = LocalDateTime.now().format(formatter);
+        String formattedMessage = String.format("[%s] [WARNING] in [%s]: %s", timestamp, loggerName, message);
+        System.out.println(formattedMessage);
+        e.printStackTrace();
+    }
 
-    public void logError(String message) {
+    public void error(Object message) {
         String timestamp = LocalDateTime.now().format(formatter);
         String formattedMessage = String.format("[%s] [ERROR] in [%s]: %s", timestamp, loggerName, message);
         System.err.println(formattedMessage);
+    }
+    public void error(Object message, Exception e) {
+        String timestamp = LocalDateTime.now().format(formatter);
+        String formattedMessage = String.format("[%s] [ERROR] in [%s]: %s", timestamp, loggerName, message);
+        System.err.println(formattedMessage);
+        e.printStackTrace();
     }
 
 
@@ -51,8 +75,27 @@ public class Logger {
         System.setErr(dual);
     }
 
-    private static File getLogFile() { //TODO: Реализовать функционал
-        return null;
+    private static File getLogFile() throws IOException {
+
+        // время для логов
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
+
+        // очищаем от говна
+        String logfile = now.format(formatter)
+                .replace(":", "-")
+                .replace("]", "")
+                .replace("[", "")
+                .replace(".", "")
+                .replace("/", "-")
+                + ".log";
+
+        // лог файл
+        File log = new File(logDir + File.separator + "log_" + logfile);
+        if (!log.exists()){
+            log.createNewFile();
+        }
+
+        return log;
     }
 
 
