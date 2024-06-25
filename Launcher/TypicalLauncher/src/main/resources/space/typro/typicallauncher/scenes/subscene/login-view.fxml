@@ -1,20 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="loginPane" prefHeight="357.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.LoginController">
-
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.LoginController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="5.0" layoutY="87.0" prefHeight="307.0" prefWidth="600.0" spacing="30.0" AnchorPane.topAnchor="95.0">
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="500.0" spacing="10.0" style="-fx-alignment: CENTER;">
+               <children>
+                  <TextField fx:id="login" prefHeight="35.0" prefWidth="350.0" promptText="Логин" />
+                  <CheckBox fx:id="saveAccount" mnemonicParsing="false" text="Сохранить">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></CheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="500.0" spacing="10.0" style="-fx-alignment: CENTER;">
+               <children>
+                  <PasswordField fx:id="password" prefHeight="35.0" prefWidth="294.0" promptText="Пароль" />
+                  <ImageView fx:id="passwordVisibleImage" fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/login/Глаз-закрытый.png" />
+                     </image>
+                  </ImageView>
+                  <CheckBox fx:id="autoLogin" mnemonicParsing="false" text="Авто-вход">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></CheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="20.0">
+               <children>
+                  <RadioButton fx:id="withAccount" mnemonicParsing="false" text="Аккаунт TyPro" />
+                  <RadioButton fx:id="withoutAccount" mnemonicParsing="false" text="Без аккаунта" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="272.0" spacing="10.0">
+               <children>
+                  <Hyperlink fx:id="registr" styleClass="white_text" text="регистрация" underline="true" />
+                  <Button fx:id="auth" mnemonicParsing="false" prefHeight="41.0" prefWidth="146.0" text="Авторизоваться" />
+               </children>
+               <VBox.margin>
+                  <Insets left="300.0" top="60.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <ComboBox fx:id="accountList" layoutX="420.0" layoutY="14.0" prefWidth="150.0" AnchorPane.bottomAnchor="363.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="14.0" />
+   </children>
 </AnchorPane>

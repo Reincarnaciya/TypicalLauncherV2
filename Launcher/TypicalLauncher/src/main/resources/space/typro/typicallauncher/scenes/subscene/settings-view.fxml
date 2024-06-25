@@ -19,7 +19,7 @@
             <HBox minHeight="25.0" minWidth="600.0" prefHeight="25.0" prefWidth="600.0">
                <children>
                   <Slider fx:id="ramSlider" blockIncrement="512.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="1" prefHeight="14.0" prefWidth="500.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
-                  <TextField fx:id="ramTextField" alignment="CENTER" prefHeight="23.0" prefWidth="56.0" text="32GB" />
+                  <TextField fx:id="ramTextField" alignment="CENTER" editable="false" prefHeight="23.0" prefWidth="56.0" styleClass="no-visible-text-field" text="32GB" />
                </children>
                <padding>
                   <Insets top="5.0" />
@@ -27,13 +27,13 @@
             </HBox>
             <HBox prefHeight="27.0" prefWidth="600.0" spacing="5.0">
                <children>
-                  <TextField fx:id="widthTextField" prefHeight="25.0" prefWidth="50.0" promptText="800" />
+                  <TextField fx:id="widthTextField" prefHeight="25.0" prefWidth="50.0" promptText="800" styleClass="no-visible-text-field" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" textAlignment="RIGHT">
                      <font>
                         <Font name="F77 Minecraft Regular" size="20.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="heightTextField" prefHeight="25.0" prefWidth="50.0" promptText="600" />
+                  <TextField fx:id="heightTextField" prefHeight="25.0" prefWidth="50.0" promptText="600" styleClass="no-visible-text-field" />
                   <CheckBox fx:id="fullscreenCheckBox" mnemonicParsing="false" text="Полноэкранный режим" textFill="WHITE">
                      <padding>
                         <Insets top="5.0" />

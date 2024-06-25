@@ -20,19 +20,48 @@ Text {
     -fx-text-fill: white;
     -fx-font-size: 18pt;
 }
+.text-field{
+    -fx-background-color: transparent;
+    -fx-border-color: WHITE;
+    -fx-border-width: 0 0 1 0;
+}
+.no-visible-text-field {
+    -fx-background-color: #363636;
+}
+.combo-box  {
+    -fx-background-color: GRAY;
+}
+.combo-box .list-view {
+    -fx-background-color: GRAY;
+}
 Button{
     -fx-text-fill: WHITE;
     -fx-background-color: #262626;
     -fx-cursor: HAND;
 }
-CheckBox:focused .box {
-    -fx-background-color: #262626;
+.radio-button {
+    -fx-text-fill: WHITE;
 }
+.radio-button .radio {
+    -fx-fill: gray;
+    -fx-background-color: gray;
+}
+.radio-button:selected .radio .dot {
+    -fx-background-color: WHITE;
+}
+CheckBox:selected .box .mark {
+    -fx-background-color: #ffffff;
+}
+.white_text {
+    -fx-text-fill: white;
+}
+
 CheckBox .box {
     -fx-background-color: #262626;
 }
 CheckBox {
     -fx-background-color: #363636;
+    -fx-text-fill: WHITE;
 }
 Slider Text {
     -fx-background-color: #363636;
@@ -61,7 +90,9 @@ TextField {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
 }
-
+PasswordField {
+    -fx-text-fill: WHITE;
+}
 Header{
     -fx-background-color: #363636;
 }

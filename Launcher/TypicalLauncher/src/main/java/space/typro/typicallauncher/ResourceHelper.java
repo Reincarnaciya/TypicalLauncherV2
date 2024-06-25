@@ -1,5 +1,6 @@
 package space.typro.typicallauncher;
 
+import javafx.scene.image.Image;
 import lombok.CustomLog;
 
 import java.io.InputStream;
@@ -14,12 +15,14 @@ public class ResourceHelper {
         }
         return Objects.requireNonNull(Main.class.getResource(folder.location + "/" + resourceName)).toExternalForm();
     }
+
     public static URL getResourceUrlByType(ResourceFolder folder, String resourceName){
         if (folder == ResourceFolder.ROOT){
             return Main.class.getResource(resourceName);
         }
         return Main.class.getResource(folder.location + "/" + resourceName);
     }
+
     public static InputStream getResourceAsStreamByType(ResourceFolder folder, String resourceName){
         if (folder == ResourceFolder.ROOT){
             return Main.class.getResourceAsStream(resourceName);

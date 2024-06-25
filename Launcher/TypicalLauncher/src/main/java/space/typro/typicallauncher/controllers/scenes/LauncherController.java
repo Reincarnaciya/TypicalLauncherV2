@@ -1,6 +1,5 @@
 package space.typro.typicallauncher.controllers.scenes;
 
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +16,14 @@ import space.typro.typicallauncher.controllers.BaseController;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @CustomLog
 public class LauncherController extends BaseController {
     public static LauncherController instance;
 
-    //=========================================================================== Инициализация элементов javafx ===========================================================================
     @FXML
     private VBox mainPane;
     @FXML
@@ -52,24 +52,25 @@ public class LauncherController extends BaseController {
     private Pane subscene;
     @FXML
     private Pane hideLauncherButton;
-    //=========================================================================== Конец инициализации элементов javaFX ===========================================================================
+
     private static Subscene currentSubscene = null;
     private static Subscene previosSubscene = Subscene.NONE;
 
 
-    @Override
-    public void initialize() {
+
+    public void initialize(URL var1, ResourceBundle var2) {
         super.initialize();
         instance = this;
         this.loadLeftPanels();
         this.loadTopPane();
         hideLauncherButton.setOnMouseClicked(this::hideLauncher);
+        //TODO: Проверка на авторизованность пользователя, если авторизован - то в профиль, иначе в авторизацию
+        loadSubscene(Subscene.LOGIN);
     }
 
     private void hideLauncher(MouseEvent mouseEvent) {
         Main.GLOBAL_STAGE.setIconified(true);
     }
-
     /**
      * @param whatToLoad Сабсцена для загрузки
      */
@@ -110,8 +111,6 @@ public class LauncherController extends BaseController {
         previosSubscene = Objects.requireNonNullElse(currentSubscene, Subscene.NONE);
         currentSubscene = whatToLoad;
     }
-
-
     private void loadTopPane() {
         exitButton.setOnMouseClicked(mouseEvent -> Main.exit());
     }
@@ -175,7 +174,6 @@ public class LauncherController extends BaseController {
                 )
         );
     }
-
     public enum Subscene{
         NONE("NULL"),
         PREVIOS_SUBSCENE(""),
@@ -192,6 +190,4 @@ public class LauncherController extends BaseController {
             fxml = s;
         }
     }
-
-
 }

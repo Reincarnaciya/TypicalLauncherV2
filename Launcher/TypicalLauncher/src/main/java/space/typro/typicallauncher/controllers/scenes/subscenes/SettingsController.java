@@ -17,7 +17,9 @@ import space.typro.typicallauncher.utils.LauncherAlert;
 import space.typro.typicallauncher.utils.RamConverter;
 
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 @CustomLog
@@ -52,7 +54,7 @@ public class SettingsController extends BaseController {
     private static final int MIN_HEIGHT = 600;
     private static final String LAUNCHER_VERSION_TEXT = "Версия лаунчера: " + Main.LAUNCHER_VERSION;
     @FXML
-    public void initialize() {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize();
         launcherVersionText.setText(LAUNCHER_VERSION_TEXT);
 
@@ -66,6 +68,8 @@ public class SettingsController extends BaseController {
 
         updateVisualSettings(GameSettings.settings);
     }
+
+
 
     private void fullscreenCheckBoxClick(MouseEvent mouseEvent) {
         if (fullscreenCheckBox.isSelected()){
@@ -177,9 +181,7 @@ public class SettingsController extends BaseController {
 
         return true;
     }
-    private void showErrorAlert(String message) {
-        new LauncherAlert(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
-    }
+
 
 
     private void updateVisualSettings(GameSettings settings) {
