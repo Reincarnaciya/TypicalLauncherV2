@@ -1,6 +1,6 @@
 package space.typro.typicallauncher.controllers.scenes.subscenes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +19,7 @@ import space.typro.typicallauncher.utils.RamConverter;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -223,7 +224,7 @@ public class SettingsController extends BaseController {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static @Data class GameSettings implements Serializable { // TODO: Переписать всё это говно под работу с ивентами
+    public static @Data class GameSettings implements Serializable {
         public static GameSettings settings = new GameSettings();
 
         /**
@@ -254,50 +255,54 @@ public class SettingsController extends BaseController {
          */
         private String pathToClientDir = DirManager.launcherDir + File.separator + "clients";
 
-
-        private static File settingsFile = new File(DirManager.launcherDir.dir + File.separator +  "settings.json");
-        public void loadSettings() throws IOException { //TODO: ПОЛНОСТЬЮ переписать логику сейва под jackson
+        private static File settingsFile = new File(DirManager.launcherDir.dir + File.separator +  "settings.properties");
+        public void loadSettings() throws IOException {
 
             if (!new File(pathToClientDir).exists()){
                 new File(pathToClientDir).mkdirs();
             }
             if (!settingsFile.exists()){
                 settingsFile.createNewFile();
-                rewriteSettingsFile(settings, settingsFile);
                 return;
             }
 
+            Properties properties = new Properties();
+            properties.load(new FileInputStream(settingsFile));
 
-            StringBuilder json = new StringBuilder();
+            this.fullscreen = Boolean.parseBoolean(properties.getProperty(SettingsEnum.FULLSCREEN.name()));
+            this.height = Integer.parseInt(properties.getProperty(SettingsEnum.HEIGHT.name()));
+            this.width = Integer.parseInt(properties.getProperty(SettingsEnum.WIDTH.name()));
+            this.hideToTray = Boolean.parseBoolean(properties.getProperty(SettingsEnum.HIDE_TO_TRAY.name()));
+            this.ram = Float.parseFloat(properties.getProperty(SettingsEnum.RAM.name()));
+            this.pathToClientDir = properties.getProperty(SettingsEnum.PATH_TO_CLIENT.name());
 
-            try (FileReader reader = new FileReader(settingsFile)){
-                Scanner sc = new Scanner(reader);
-                while (sc.hasNextLine()){
-                    json.append(sc.nextLine());
-                }
-            }
-            settings = new ObjectMapper().readValue(json.toString(), GameSettings.class);
+
         }
 
-        public static void rewriteSettingsFile(GameSettings settings, File file) throws IOException {
-            try (FileWriter writer = new FileWriter(file)) {
-                writer.write(new ObjectMapper().writeValueAsString(settings));
-                writer.flush();
-            }
-        }
 
         public void save() throws IOException {
-            rewriteSettingsFile(settings, settingsFile);
-            settings = this;
+            Properties properties = new Properties();
+
+            properties.setProperty(SettingsEnum.FULLSCREEN.name(), String.valueOf(fullscreen));
+            properties.setProperty(SettingsEnum.WIDTH.name(), String.valueOf(width));
+            properties.setProperty(SettingsEnum.HEIGHT.name(), String.valueOf(height));
+            properties.setProperty(SettingsEnum.HIDE_TO_TRAY.name(), String.valueOf(hideToTray));
+            properties.setProperty(SettingsEnum.RAM.name(), String.valueOf(ram));
+            properties.setProperty(SettingsEnum.PATH_TO_CLIENT.name(), String.valueOf(pathToClientDir));
+
+
+            properties.save(new FileOutputStream(settingsFile), "Настройки клиента");
         }
 
-        enum SettingsEnum{
+        public enum SettingsEnum{
             FULLSCREEN, WIDTH, HEIGHT, HIDE_TO_TRAY, RAM, PATH_TO_CLIENT
         }
 
         public static void resetToDefault(){
             settings = new GameSettings();
         }
+
+
     }
 }
 

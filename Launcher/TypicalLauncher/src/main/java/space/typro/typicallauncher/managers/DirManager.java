@@ -14,6 +14,7 @@ public class DirManager {
 
     public static final DirManager launcherDir = new DirManager("TypicalLauncher");
     public static final DirManager logDir = new DirManager(launcherDir.getName() + File.separator + "logs");
+    public static final DirManager assetsDir = new DirManager(launcherDir.getName() + File.separator + "assets");
 
 
     public final File dir;

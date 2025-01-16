@@ -22,6 +22,6 @@ public class Account {
      @AllArgsConstructor
      public static class User {
         String password;
-        String username;
+        String username; //TODO: ХРАНИТЬ ХЭШ
     }
 }

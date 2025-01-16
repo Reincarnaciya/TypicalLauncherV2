@@ -6,8 +6,6 @@ module space.typro.typicallauncher {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
     requires static lombok;
-    requires com.fasterxml.jackson.core;
-    requires com.fasterxml.jackson.databind;
     requires jdk.management;
 
     opens space.typro.typicallauncher to javafx.fxml;
