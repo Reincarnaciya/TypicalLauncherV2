@@ -2,43 +2,43 @@ package space.typro.typicallauncher.utils;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class NodeUtil {
 
     /**
+     * Заменяет ноду в родительском контейнере.
      *
-     * @param parent Где находится нода "whatReplace"
-     * @param whatReplace Нода, которая будет заменена на replaceTo
-     * @param replaceTo Нода, на которую заменяется whatReplace
-     * @return вернет replaceTo
+     * @param parent      Родительский контейнер, в котором находится нода.
+     * @param whatReplace Нода, которая будет заменена.
+     * @param replaceTo   Нода, на которую будет произведена замена.
+     * @return Возвращает ноду, на которую была произведена замена.
      */
     public static Node replaceNode(Pane parent, Node whatReplace, Node replaceTo) {
-        Platform.runLater(()->{
-            if (parent != null && whatReplace != null && replaceTo != null) {
-                int index = parent.getChildren().indexOf(whatReplace);
-                if (index != -1) {
-                    replaceTo.setLayoutX(whatReplace.getLayoutX());
-                    replaceTo.setLayoutY(whatReplace.getLayoutY());
+        if (parent == null || whatReplace == null || replaceTo == null) {
+            throw new IllegalArgumentException("Parent, whatReplace, and replaceTo cannot be null");
+        }
 
-                    replaceTo.setTranslateX(whatReplace.getTranslateX());
-                    replaceTo.setTranslateY(whatReplace.getTranslateY());
+        Platform.runLater(() -> {
+            int index = parent.getChildren().indexOf(whatReplace);
+            if (index != -1) {
+                replaceTo.setLayoutX(whatReplace.getLayoutX());
+                replaceTo.setLayoutY(whatReplace.getLayoutY());
 
-                    replaceTo.setRotate(whatReplace.getRotate());
+                replaceTo.setTranslateX(whatReplace.getTranslateX());
+                replaceTo.setTranslateY(whatReplace.getTranslateY());
 
-                    replaceTo.setScaleX(whatReplace.getScaleX());
-                    replaceTo.setScaleY(whatReplace.getScaleY());
+                replaceTo.setRotate(whatReplace.getRotate());
 
+                replaceTo.setScaleX(whatReplace.getScaleX());
+                replaceTo.setScaleY(whatReplace.getScaleY());
 
-                    replaceTo.setVisible(true);
+                replaceTo.setVisible(true);
 
-                    parent.getChildren().set(index, replaceTo);
-                }
+                parent.getChildren().set(index, replaceTo);
             }
         });
+
         return replaceTo;
     }
-
 }

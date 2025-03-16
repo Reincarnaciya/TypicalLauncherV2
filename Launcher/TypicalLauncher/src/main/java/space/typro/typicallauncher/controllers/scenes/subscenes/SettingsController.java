@@ -9,8 +9,10 @@ import javafx.stage.DirectoryChooser;
 import lombok.*;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.controllers.BaseController;
+import space.typro.typicallauncher.events.EventData;
 import space.typro.typicallauncher.events.EventDispatcher;
-import space.typro.typicallauncher.events.SettingsEvent;
+import space.typro.typicallauncher.events.EventListener;
+import space.typro.typicallauncher.events.Events;
 import space.typro.typicallauncher.managers.DirManager;
 import space.typro.typicallauncher.managers.UserPC;
 import space.typro.typicallauncher.utils.LauncherAlert;
@@ -21,7 +23,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 @CustomLog
 public class SettingsController extends BaseController {
@@ -66,7 +67,10 @@ public class SettingsController extends BaseController {
         clientPathHyperlink.setOnMouseClicked(this::changeClientDir);
         fullscreenCheckBox.setOnMouseClicked(this::fullscreenCheckBoxClick);
         ramSlider.setMax(Math.round(RamConverter.toGigabytes(UserPC.getAvailableRam())));
-
+        EventDispatcher.subscribe(EventDispatcher.EventType.SETTINGS_EVENT, eventData -> {
+            Events.SettingsEvent data = (Events.SettingsEvent) eventData;
+            updateVisualSettings(data.getNewSettings());
+        });
         updateVisualSettings(GameSettings.settings);
     }
 
@@ -109,7 +113,7 @@ public class SettingsController extends BaseController {
                         if (!settingsIsCorrect()){
                             return;
                         }
-                        GameSettings settingsAfterChange = GameSettings.settings;
+                        GameSettings settingsBeforeChange = GameSettings.settings;
                         HashMap<String, String> changedSettings = new HashMap<>();
                         GameSettings newSettings = GameSettings.settings;
                         if (newSettings.fullscreen != fullscreenCheckBox.isSelected()){
@@ -134,12 +138,13 @@ public class SettingsController extends BaseController {
                         }
                         try {
                             newSettings.save();
-                            SettingsEventInfo.SettingsData data = new SettingsEventInfo.SettingsData(
-                                    SettingsEventInfo.SettingsEventType.SAVE,
-                                    changedSettings,
-                                    settingsAfterChange,
-                                    newSettings);
-                            EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT, data);
+                            EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT,
+                                    new Events.SettingsEvent(
+                                            Events.SettingsEvent.SettingsEventType.SAVE,
+                                            changedSettings,
+                                            settingsBeforeChange,
+                                            newSettings
+                            ));
                         }catch (IOException e){
                             showErrorAlert("Чёт ошибка какая-то.. Подробности в консоли");
                             log.error("A?", e);

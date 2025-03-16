@@ -6,21 +6,28 @@ import lombok.CustomLog;
 public class RamConverter {
 
     /**
-     * Конвертирует гигабайты в мегабайты
-     * @param bytes гигабайты
-     * @return мегабайты
+     * Конвертирует гигабайты в мегабайты.
+     *
+     * @param gigabytes Количество гигабайт.
+     * @return Количество мегабайт.
      */
-    public static float toMegabytes(float bytes) {
-        return bytes * 1024;
+    public static float toMegabytes(float gigabytes) {
+        if (gigabytes < 0) {
+            throw new IllegalArgumentException("Gigabytes cannot be negative");
+        }
+        return gigabytes * 1024;
     }
 
     /**
-     * Преобразует мегабайты в Гигабайты
-     * @param bytes Мегабайты
-     * @return гигабайты
+     * Преобразует мегабайты в гигабайты.
+     *
+     * @param megabytes Количество мегабайт.
+     * @return Количество гигабайт.
      */
-    public static float toGigabytes(int bytes) {
-        return (float) bytes / 1024;
+    public static float toGigabytes(int megabytes) {
+        if (megabytes < 0) {
+            throw new IllegalArgumentException("Megabytes cannot be negative");
+        }
+        return (float) megabytes / 1024;
     }
-
 }

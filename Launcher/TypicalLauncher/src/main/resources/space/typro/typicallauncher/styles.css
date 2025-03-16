@@ -1,99 +1,325 @@
+/* Шрифты */
 @font-face {
     -fx-font-family: "F77 Minecraft";
     src: url("Minecraft.ttf");
 }
+
+/* Общие стили */
 .root {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
     -fx-focus-color: white;
     -fx-font-family: "F77 Minecraft";
 }
+
 AnchorPane {
     -fx-focus-color: NONE;
 }
-Label {
-	-fx-text-fill: white;
-}
-Text {
-    -fx-font-family: "F77 Minecraft";
-    -fx-fill: WHITE;
-    -fx-text-fill: white;
-    -fx-font-size: 18pt;
-}
-.text-field{
-    -fx-background-color: transparent;
-    -fx-border-color: WHITE;
-    -fx-border-width: 0 0 1 0;
-}
-.no-visible-text-field {
-    -fx-background-color: #363636;
-}
-.combo-box  {
-    -fx-background-color: GRAY;
-}
-.combo-box .list-view {
-    -fx-background-color: GRAY;
-}
-Button{
-    -fx-text-fill: WHITE;
-    -fx-background-color: #262626;
-    -fx-cursor: HAND;
-}
-.radio-button {
-    -fx-text-fill: WHITE;
-}
-.radio-button .radio {
-    -fx-fill: gray;
-    -fx-background-color: gray;
-}
-.radio-button:selected .radio .dot {
-    -fx-background-color: WHITE;
-}
-CheckBox:selected .box .mark {
-    -fx-background-color: #ffffff;
-}
+
 .white_text {
     -fx-text-fill: white;
 }
 
-CheckBox .box {
-    -fx-background-color: #262626;
-}
-CheckBox {
+Header {
     -fx-background-color: #363636;
-    -fx-text-fill: WHITE;
 }
-Slider Text {
+
+/* Текстовые элементы */
+Label {
+    -fx-text-fill: white;
+}
+
+Text {
+    -fx-font-family: "F77 Minecraft";
+    -fx-fill: WHITE;
+    -fx-text-fill: white;
+    -fx-font-size: 14pt;
+}
+
+/* Поля ввода */
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: WHITE;
+    -fx-border-width: 0 0 1 0;
+}
+
+.no-visible-text-field {
     -fx-background-color: #363636;
-    -fx-font-size: 6pt;
 }
-
-Slider:focused .thumb {
-    -fx-background-color: #262626;
-}
-Slider .thumb {
-    -fx-background-color: #262626;
-}
-
-Hyperlink {
-    -fx-text-fill: #4137c9;
-    -fx-border-color: #363636;
-}
-
-Hyperlink:focused {
-    -fx-text-fill: #4137c9;
-    -fx-border-color: #363636;
-}
-
 
 TextField {
     -fx-background-color: #363636;
     -fx-text-fill: WHITE;
 }
+
 PasswordField {
     -fx-text-fill: WHITE;
 }
-Header{
+
+/* Кнопки */
+/* Базовый стиль кнопки */
+Button {
+    -fx-background-color: #262626;
+    -fx-text-fill: WHITE;
+    -fx-font-family: "F77 Minecraft";
+    -fx-font-size: 10pt;
+    -fx-background-radius: 5px;
+    -fx-border-color: GRAY;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-cursor: HAND;
+    -fx-transition: all 0.2s;
+}
+
+/* Hover-эффект */
+Button:hover {
+    -fx-background-color: #363636;
+    -fx-border-color: WHITE;
+}
+
+/* Эффект нажатия */
+Button:pressed {
+    -fx-background-color: #1a1a1a;
+}
+
+/* Акцентные кнопки */
+Button.primary {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: WHITE;
+}
+
+Button.primary:hover {
+    -fx-background-color: #66BB6A;
+}
+
+Button.primary:pressed {
+    -fx-background-color: #388E3C;
+}
+
+Button.danger {
+    -fx-background-color: #F44336;
+    -fx-text-fill: WHITE;
+}
+
+Button.danger:hover {
+    -fx-background-color: #EF5350;
+}
+
+Button.danger:pressed {
+    -fx-background-color: #D32F2F;
+}
+
+/* Кнопки с иконками */
+Button.with-icon {
+    -fx-graphic-text-gap: 5px;
+}
+
+/* Выпадающие списки */
+/* Сам комбо-бокс */
+.combo-box {
+    -fx-background-color: #262626;
+    -fx-border-color: GRAY;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: WHITE;
+    -fx-font-family: "F77 Minecraft";
+    -fx-font-size: 10pt;
+    -fx-cursor: HAND;
+    -fx-transition: all 0.2s;
+}
+
+.combo-box:hover {
+    -fx-border-color: WHITE;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: WHITE;
+}
+
+/* Выпадающий список */
+.combo-box .list-view {
+    -fx-background-color: #363636;
+    -fx-border-color: WHITE;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: WHITE;
+    -fx-font-family: "F77 Minecraft";
+    -fx-font-size: 10pt;
     -fx-background-color: #363636;
 }
 
+.combo-box .list-cell:hover {
+    -fx-background-color: #464646;
+    -fx-text-fill: #4CAF50;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #363636;
+    -fx-text-fill: WHITE;
+}
+
+/* Выбранный элемент в комбо-боксе */
+.combo-box .cell:selected {
+    -fx-text-fill: WHITE;
+    -fx-background-color: #4CAF50;
+}
+
+/* Радиокнопки */
+/* Кружок (radio) */
+.radio-button .radio {
+    -fx-background-color: #262626;
+    -fx-border-color: GRAY;
+    -fx-border-width: 1px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-padding: 5px;
+    -fx-transition: all 0.2s;
+}
+
+.radio-button:hover .radio {
+    -fx-border-color: WHITE;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: WHITE;
+}
+
+/* Точка внутри кружка (dot) */
+.radio-button:selected .radio .dot {
+    -fx-background-color: WHITE;
+    -fx-background-radius: 50%;
+    -fx-padding: 4px;
+}
+
+/* Текст радиокнопки */
+.radio-button {
+    -fx-text-fill: WHITE;
+    -fx-font-family: "F77 Minecraft";
+    -fx-font-size: 10pt;
+    -fx-cursor: HAND;
+}
+
+.radio-button:hover {
+    -fx-text-fill: #4CAF50;
+}
+
+/* Слайдеры */
+/* Ползунок (thumb) */
+Slider .thumb {
+    -fx-background-color: #262626;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 15px;
+    -fx-pref-height: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);
+}
+
+Slider .thumb:hover {
+    -fx-background-color: #363636;
+}
+
+/* Трек (track) */
+Slider .track {
+    -fx-background-color: #464646;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 5px;
+}
+
+Slider .track:hover {
+    -fx-background-color: #565656;
+}
+
+/* Заполненная часть трека (filled track) */
+Slider .filled-track {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 5px;
+    -fx-transition: all 0.2s;
+}
+
+/* Текст (если есть) */
+Slider .text {
+    -fx-fill: WHITE;
+    -fx-font-family: "F77 Minecraft";
+    -fx-font-size: 10pt;
+}
+
+/* Гиперссылки */
+/* Базовый стиль для гиперссылок */
+Hyperlink {
+    -fx-text-fill: #4137c9; /* Основной цвет текста */
+    -fx-border-color: transparent; /* Прозрачная рамка */
+    -fx-underline: false; /* Убираем стандартное подчеркивание */
+    -fx-cursor: HAND; /* Курсор при наведении */
+    -fx-transition: all 0.2s; /* Плавное изменение */
+}
+
+/* Стиль при наведении */
+Hyperlink:hover {
+    -fx-text-fill: #6a5acd; /* Изменение цвета текста */
+    -fx-border-color: #6a5acd; /* Подчеркивание */
+}
+
+/* Стиль для гиперссылки-кнопки */
+Hyperlink.button-style {
+    -fx-text-fill: WHITE;
+    -fx-background-color: #4137c9;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: HAND;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+}
+
+Hyperlink.button-style:hover {
+    -fx-background-color: #6a5acd;
+}
+
+/* Чекбоксы */
+CheckBox {
+    -fx-text-fill: WHITE; /* Цвет текста */
+    -fx-font-family: "F77 Minecraft"; /* Шрифт */
+    -fx-font-size: 10pt; /* Размер текста */
+    -fx-cursor: HAND; /* Курсор при наведении */
+}
+
+CheckBox .box {
+    -fx-background-color: #262626; /* Фон */
+    -fx-border-color: GRAY; /* Рамка */
+    -fx-border-width: 1px; /* Толщина рамки */
+    -fx-background-radius: 3px; /* Скругленные углы фона */
+    -fx-border-radius: 3px; /* Скругленные углы рамки */
+    -fx-padding: 5px; /* Отступы внутри */
+    -fx-transition: all 0.2s; /* Плавные анимации */
+}
+
+CheckBox:hover .box {
+    -fx-background-color: #464646; /* Светлее при наведении */
+    -fx-border-color: WHITE; /* Белая рамка */
+}
+
+CheckBox:selected .box {
+    -fx-background-color: #4CAF50; /* Зеленый фон */
+    -fx-border-color: WHITE; /* Белая рамка */
+}
+
+CheckBox:selected .mark {
+    -fx-background-color: WHITE; /* Белая галочка */
+}
+
+CheckBox:hover {
+    -fx-text-fill: #4CAF50; /* Зеленый текст */
+}
+
+CheckBox:selected {
+    -fx-font-weight: BOLD; /* Полужирный текст */
+}

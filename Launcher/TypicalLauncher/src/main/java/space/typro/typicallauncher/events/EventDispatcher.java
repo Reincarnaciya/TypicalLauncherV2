@@ -1,34 +1,29 @@
 package space.typro.typicallauncher.events;
 
-import lombok.CustomLog;
-
 import java.util.ArrayList;
-@CustomLog
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class EventDispatcher {
-    private static final ArrayList<InternetEvent> internetSubscribed = new ArrayList<>();
-    private static final ArrayList<UserEvent> userSubscribed = new ArrayList<>();
+    private static final Map<EventType, List<EventListener<? extends EventData>>> subscribers = new HashMap<>();
 
-    public static void subscribe(EventType type, Object toSubscribe){
-        switch (type) {
-            case INTERNET_SENSITIVITY -> internetSubscribed.add((InternetEvent) toSubscribe);
-            case USER_EVENT -> userSubscribed.add((UserEvent) toSubscribe);
-        }
+    public static <T extends EventData> void subscribe(EventType type, EventListener<T> listener) {
+        subscribers.computeIfAbsent(type, k -> new ArrayList<>()).add(listener);
     }
 
-    public static void throwEvent(EventType type, EventData data) {
-        switch (type) {
-            case INTERNET_SENSITIVITY -> {
-                InternetEvent.InternetEventInfo internetEventInfo = new InternetEvent.InternetEventInfo((InternetEvent.InternetEventInfo.InternetData) data);
-                internetSubscribed.forEach(internetEvent -> internetEvent.onInternetEvent(internetEventInfo));
-            }
-            case USER_EVENT -> {
-                UserEvent.UserEventInfo userEventInfo = new UserEvent.UserEventInfo((UserEvent.UserEventInfo.UserData) data);
-                userSubscribed.forEach(userEvent -> userEvent.onUserEvent(userEventInfo));
+    public static <T extends EventData> void throwEvent(EventType type, T eventData) {
+        List<EventListener<? extends EventData>> listeners = subscribers.get(type);
+        if (listeners != null) {
+            for (EventListener<? extends EventData> listener : listeners) {
+                @SuppressWarnings("unchecked")
+                EventListener<T> typedListener = (EventListener<T>) listener;
+                typedListener.onEvent(eventData);
             }
         }
     }
 
-    public enum EventType{
+    public enum EventType {
         INTERNET_SENSITIVITY, USER_EVENT, SETTINGS_EVENT
     }
 }

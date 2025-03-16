@@ -1,3 +1,5 @@
 package space.typro.typicallauncher.events;
 
-public interface EventData { }
+public abstract class EventData {
+    abstract void onEvent();
+}

@@ -54,7 +54,7 @@ public class LauncherController extends BaseController {
     private Pane hideLauncherButton;
 
     private static Subscene currentSubscene = null;
-    private static Subscene previosSubscene = Subscene.NONE;
+    private static Subscene previosSubscene = Subscene.NONE; //TODO: лист прошлых сцен
 
 
 

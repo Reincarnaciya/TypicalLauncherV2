@@ -17,70 +17,61 @@ public class Logger {
 
     private final String loggerName;
 
-
-    public Logger(String name){
-        loggerName = name;
+    public Logger(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Logger name cannot be null");
+        }
+        this.loggerName = name;
     }
 
-    public static Logger getLogger(String loggerName){
+    public static Logger getLogger(String loggerName) {
         return new Logger(loggerName);
     }
 
-
     public void info(Object message) {
-        String timestamp = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(formatter);
-        String formattedMessage = String.format("[%s] [INFO] in [%s]: %s", timestamp, loggerName, message);
-        System.out.println(formattedMessage);
+        log("INFO", message);
     }
+
     public void info(Object message, Exception e) {
-        String timestamp = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(formatter);
-        String formattedMessage = String.format("[%s] [INFO] in [%s]: %s", timestamp, loggerName, message);
-        System.out.println(formattedMessage);
-        e.printStackTrace();
+        log("INFO", message, e);
     }
 
     public void warn(Object message) {
-        String timestamp = LocalDateTime.now().format(formatter);
-        String formattedMessage = String.format("[%s] [WARNING] in [%s]: %s", timestamp, loggerName, message);
-        System.out.println(formattedMessage);
+        log("WARNING", message);
     }
+
     public void warn(Object message, Exception e) {
-        String timestamp = LocalDateTime.now().format(formatter);
-        String formattedMessage = String.format("[%s] [WARNING] in [%s]: %s", timestamp, loggerName, message);
-        System.out.println(formattedMessage);
-        e.printStackTrace();
+        log("WARNING", message, e);
     }
 
     public void error(Object message) {
-        String timestamp = LocalDateTime.now().format(formatter);
-        String formattedMessage = String.format("[%s] [ERROR] in [%s]: %s", timestamp, loggerName, message);
-        System.err.println(formattedMessage);
+        log("ERROR", message);
     }
+
     public void error(Object message, Exception e) {
-        String timestamp = LocalDateTime.now().format(formatter);
-        String formattedMessage = String.format("[%s] [ERROR] in [%s]: %s", timestamp, loggerName, message);
-        System.err.println(formattedMessage);
+        log("ERROR", message, e);
+    }
+
+    private void log(String level, Object message) {
+        String timestamp = ZonedDateTime.now(ZoneId.of("Europe/Moscow")).format(formatter);
+        String formattedMessage = String.format("[%s] [%s] in [%s]: %s", timestamp, level, loggerName, message);
+        System.out.println(formattedMessage);
+    }
+
+    private void log(String level, Object message, Exception e) {
+        log(level, message);
         e.printStackTrace();
     }
 
-
     public static void initLogger() throws IOException {
-        // запись в файл и вывод в консоль
-        PrintStream out = new PrintStream(Files.newOutputStream(getLogFile().toPath())); //TODO: Фикси нуллпоинтер
-
+        PrintStream out = new PrintStream(Files.newOutputStream(getLogFile().toPath()));
         PrintStream dual = new DualStream(System.out, out);
         System.setOut(dual);
-
-        dual = new DualStream(System.err, out);
-        System.setErr(dual);
+        System.setErr(new DualStream(System.err, out));
     }
 
     private static File getLogFile() throws IOException {
-
-        // время для логов
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
-
-        // очищаем от говна
         String logfile = now.format(formatter)
                 .replace(":", "-")
                 .replace("]", "")
@@ -89,32 +80,33 @@ public class Logger {
                 .replace("/", "-")
                 + ".log";
 
-        // лог файл
         File log = new File(logDir + File.separator + "log_" + logfile);
-        if (!log.exists()){
+        if (!log.exists()) {
             log.createNewFile();
         }
 
         return log;
     }
 
-
-
-    static class DualStream extends PrintStream{
-        final PrintStream out;
+    static class DualStream extends PrintStream {
+        private final PrintStream out;
 
         public DualStream(PrintStream out1, PrintStream out2) {
             super(out1);
             this.out = out2;
         }
 
+        @Override
         public void write(byte[] buf, int off, int len) {
             try {
                 super.write(buf, off, len);
                 out.write(buf, off, len);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                System.err.println("Error in DualStream: " + e.getMessage());
+            }
         }
 
+        @Override
         public void flush() {
             super.flush();
             out.flush();
